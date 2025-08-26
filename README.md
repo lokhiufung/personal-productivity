@@ -1,6 +1,6 @@
 # Personal Productivity Progress Tracker
 
-This is a simple, yet powerful, single-page web application designed to help you track your weekly progress. Built with HTML, CSS, and JavaScript, it provides a clean and intuitive interface for managing tasks, celebrating accomplishments, and maintaining a history of your work.
+This is a simple, yet powerful, single-page web application designed to help you track your weekly progress. Built with HTML, CSS, and JavaScript, it provides a clean and intuitive interface for managing tasks, celebrating accomplishments, and maintaining a history of your work. Check the demo [here](https://lokhiufung.github.io/personal-productivity/main.html)
 
 ## Features
 
