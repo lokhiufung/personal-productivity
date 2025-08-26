@@ -8,6 +8,7 @@ This is a simple, yet powerful, single-page web application designed to help you
 *   **Task Completion:** Mark tasks as complete to track your progress.
 *   **Task Dependencies:** Define dependencies between tasks, ensuring a logical workflow.
 *   **Task Priorities:** Assign priorities (High, Medium, Low) to focus on what matters most.
+*   **Task Dependency Graph:** Visualize your tasks and their dependencies in an interactive force-directed graph.
 *   **Weekly Summaries:** Write and save a summary of your accomplishments each week.
 *   **AI-Powered Reflections:** Automatically generate a summary of your completed tasks using a local AI model (Ollama).
 *   **Progress History:** Review your past weekly summaries and task completion rates.
@@ -28,6 +29,17 @@ This is a simple, yet powerful, single-page web application designed to help you
     ```
 3.  **Open in your browser:**
     Navigate to `http://localhost:8000` in your web browser to use the application.
+
+## Task Dependency Graph
+
+The application includes an interactive task dependency graph, powered by D3.js. This graph provides a visual representation of your tasks and their relationships, helping you to understand the overall structure of your work and identify critical paths.
+
+### Graph Features
+
+*   **Force-Directed Layout:** The graph uses a force-directed layout to automatically arrange the nodes (tasks) and links (dependencies) in a clear and readable way.
+*   **Interactive Nodes:** Click on a task node to highlight its connections to other tasks.
+*   **Visual Cues:** The graph uses different colors and styles to indicate the status of each task (e.g., completed, blocked, available) and its priority.
+*   **Graph Controls:** You can customize the graph view by toggling the visibility of completed tasks and highlighting blocked tasks.
 
 ## (Optional) AI Summary Generation
 
