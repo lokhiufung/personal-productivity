@@ -140,13 +140,14 @@
 
         .task-item {
             display: flex;
-            align-items: center;
-            padding: 12px;
+            align-items: flex-start;
+            padding: 15px;
             margin-bottom: 10px;
             background: white;
             border-radius: 8px;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
             transition: all 0.2s;
+            position: relative;
         }
 
         .task-item:hover {
@@ -164,9 +165,49 @@
             transform: scale(1.2);
         }
 
-        .task-text {
+        .task-main-content {
             flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .task-details {
+            flex: 1;
+            margin-left: 12px;
+        }
+
+        .task-text {
             font-size: 1rem;
+            margin-bottom: 4px;
+        }
+
+        .task-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #64748b;
+        }
+
+        .task-priority {
+            font-weight: 500;
+        }
+
+        .task-priority.high { color: #ef4444; }
+        .task-priority.medium { color: #f59e0b; }
+        .task-priority.low { color: #10b981; }
+
+        .task-dependency {
+            font-style: italic;
+        }
+
+        .task-blocked {
+            opacity: 0.6;
+            background: #fef3c7;
+        }
+
+        .task-actions {
+            display: flex;
+            gap: 5px;
         }
 
         .task-delete-btn, .task-edit-btn {
@@ -313,63 +354,6 @@
             }
         }
 
-        .task-item {
-            display: flex;
-            align-items: flex-start;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-            transition: all 0.2s;
-            position: relative;
-        }
-
-        .task-main-content {
-            flex: 1;
-            display: flex;
-            align-items: center;
-        }
-
-        .task-details {
-            flex: 1;
-            margin-left: 12px;
-        }
-
-        .task-text {
-            font-size: 1rem;
-            margin-bottom: 4px;
-        }
-
-        .task-meta {
-            display: flex;
-            gap: 12px;
-            font-size: 0.8rem;
-            color: #64748b;
-        }
-
-        .task-priority {
-            font-weight: 500;
-        }
-
-        .task-priority.high { color: #ef4444; }
-        .task-priority.medium { color: #f59e0b; }
-        .task-priority.low { color: #10b981; }
-
-        .task-dependency {
-            font-style: italic;
-        }
-
-        .task-blocked {
-            opacity: 0.6;
-            background: #fef3c7;
-        }
-
-        .task-actions {
-            display: flex;
-            gap: 5px;
-        }
-
         .weekly-summary {
             grid-column: 1 / -1;
             margin-top: 20px;
@@ -500,6 +484,133 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Graph view styles */
+        .graph-section {
+            grid-column: 1 / -1;
+        }
+
+        .graph-container {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            min-height: 400px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graph-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            align-items: center;
+        }
+
+        .graph-toggle {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .graph-toggle input[type="checkbox"] {
+            transform: scale(1.2);
+        }
+
+        #dependencyGraph {
+            width: 100%;
+            height: 400px;
+            border: 2px solid #f1f5f9;
+            border-radius: 8px;
+        }
+
+        .graph-node {
+            cursor: pointer;
+            stroke-width: 2px;
+        }
+
+        .graph-node.completed {
+            stroke: #10b981;
+            fill: #d1fae5;
+        }
+
+        .graph-node.incomplete {
+            stroke: #64748b;
+            fill: #f1f5f9;
+        }
+
+        .graph-node.blocked {
+            stroke: #ef4444;
+            fill: #fee2e2;
+        }
+
+        .graph-node.high-priority {
+            stroke: #ef4444;
+            stroke-width: 3px;
+        }
+
+        .graph-node.medium-priority {
+            stroke: #f59e0b;
+            stroke-width: 2px;
+        }
+
+        .graph-node.low-priority {
+            stroke: #10b981;
+            stroke-width: 2px;
+        }
+
+        .graph-link {
+            stroke: #94a3b8;
+            stroke-width: 2px;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+
+        .graph-link.blocking {
+            stroke: #ef4444;
+            stroke-width: 3px;
+            stroke-dasharray: 5,5;
+        }
+
+        .graph-text {
+            font-size: 12px;
+            text-anchor: middle;
+            pointer-events: none;
+            fill: #1e293b;
+            font-weight: 500;
+        }
+
+        .graph-legend {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 12px;
+            font-size: 0.8rem;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .legend-circle {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border-width: 2px;
+            border-style: solid;
+        }
+
         @media (max-width: 768px) {
             .main-content {
                 grid-template-columns: 1fr;
@@ -542,6 +653,46 @@
         </div>
 
         <div id="celebration" style="display: none;"></div>
+        
+        <div class="graph-section section">
+            <h2>🕸️ Task Dependency Graph</h2>
+            <div class="graph-controls">
+                <button class="btn" onclick="refreshGraph()">Refresh Graph</button>
+                <div class="graph-toggle">
+                    <input type="checkbox" id="showCompletedNodes" checked onchange="refreshGraph()">
+                    <label for="showCompletedNodes">Show completed tasks</label>
+                </div>
+                <div class="graph-toggle">
+                    <input type="checkbox" id="highlightBlocked" checked onchange="refreshGraph()">
+                    <label for="highlightBlocked">Highlight blocked tasks</label>
+                </div>
+            </div>
+            <div class="graph-container">
+                <svg id="dependencyGraph"></svg>
+                <div class="graph-legend">
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #d1fae5; border-color: #10b981;"></div>
+                        <span>Completed</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #f1f5f9; border-color: #64748b;"></div>
+                        <span>Available</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-circle" style="background: #fee2e2; border-color: #ef4444;"></div>
+                        <span>Blocked</span>
+                    </div>
+                    <div class="legend-item">
+                        <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#94a3b8" stroke-width="2"/></svg>
+                        <span>Dependency</span>
+                    </div>
+                    <div class="legend-item">
+                        <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#ef4444" stroke-width="2" stroke-dasharray="3,3"/></svg>
+                        <span>Blocking</span>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <div class="main-content">
             <div class="section">
@@ -606,11 +757,15 @@
             </div>
         </div>
     </div>
-
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <script>
         // Data structure
         let currentTasks = JSON.parse(localStorage.getItem('currentTasks')) || [];
         let weeklyHistory = JSON.parse(localStorage.getItem('weeklyHistory')) || [];
+
+        // Graph variables
+        let svg, simulation;
 
         // Initialize the app
         function init() {
@@ -627,6 +782,7 @@
             renderHistory();
             updateStats();
             loadCurrentSummary();
+            initializeGraph();
         }
 
         // Task management with multiple dependencies
@@ -734,7 +890,7 @@
                 text: taskText,
                 completed: false,
                 createdAt: new Date().toISOString(),
-                dependsOn: null,
+                dependsOn: [],
                 priority: 'medium'
             };
             
@@ -742,6 +898,7 @@
             saveCurrentTasks();
             renderTasks();
             updateStats();
+            refreshGraph();
             input.value = '';
         }
 
@@ -767,6 +924,7 @@
             saveCurrentTasks();
             renderTasks();
             updateStats();
+            refreshGraph();
             hideTaskForm();
             
             const depCount = selectedDependencies.length;
@@ -797,6 +955,7 @@
                 saveCurrentTasks();
                 renderTasks();
                 updateStats();
+                refreshGraph();
             }
         }
 
@@ -822,6 +981,7 @@
                 saveCurrentTasks();
                 renderTasks();
                 updateStats();
+                refreshGraph();
             }
         }
 
@@ -833,6 +993,7 @@
                     task.text = newText.trim();
                     saveCurrentTasks();
                     renderTasks();
+                    refreshGraph();
                     showCelebration('Task updated! ✏️');
                 }
             }
@@ -939,6 +1100,7 @@
                     }
                 });
             }
+            
             historyList.addEventListener('click', function(e) {
                 const weekEntry = e.target.closest('.week-entry');
                 if (!weekEntry) return;
@@ -953,7 +1115,7 @@
             });
         });
 
-        // Weekly summary
+        // Weekly summary functions
         function saveWeeklySummary() {
             const summaryText = document.getElementById('weeklySummary').value.trim();
             
@@ -994,6 +1156,7 @@
             localStorage.removeItem('currentSummary');
             renderTasks();
             updateStats();
+            refreshGraph();
             
             showCelebration('Fresh start! Unfinished tasks carried over. Ready for another productive week! 💪');
         }
@@ -1204,10 +1367,306 @@ Focus on being supportive and recognizing the value of their consistent effort, 
             }
         }
 
+        // Dependency Graph Visualization
+        function initializeGraph() {
+            const container = document.getElementById('dependencyGraph');
+            if (!container) return;
+            
+            svg = d3.select('#dependencyGraph')
+                .attr('width', '100%')
+                .attr('height', 400);
+
+            // Add arrow marker for dependency lines
+            svg.append('defs').append('marker')
+                .attr('id', 'arrowhead')
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 25)
+                .attr('refY', 0)
+                .attr('markerWidth', 6)
+                .attr('markerHeight', 6)
+                .attr('orient', 'auto')
+                .append('path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .attr('fill', '#94a3b8');
+
+            refreshGraph();
+        }
+
+        function refreshGraph() {
+            if (!svg) return;
+
+            const showCompleted = document.getElementById('showCompletedNodes')?.checked || false;
+            const highlightBlocked = document.getElementById('highlightBlocked')?.checked || false;
+
+            // Clear previous graph
+            svg.selectAll('*').remove();
+            
+            // Re-add arrow marker
+            svg.append('defs').append('marker')
+                .attr('id', 'arrowhead')
+                .attr('viewBox', '0 -5 10 10')
+                .attr('refX', 25)
+                .attr('refY', 0)
+                .attr('markerWidth', 6)
+                .attr('markerHeight', 6)
+                .attr('orient', 'auto')
+                .append('path')
+                .attr('d', 'M0,-5L10,0L0,5')
+                .attr('fill', '#94a3b8');
+
+            // Filter tasks based on settings
+            let visibleTasks = currentTasks.filter(task => 
+                showCompleted || !task.completed
+            );
+
+            if (visibleTasks.length === 0) {
+                // Show empty state
+                svg.append('text')
+                    .attr('x', '50%')
+                    .attr('y', '50%')
+                    .attr('text-anchor', 'middle')
+                    .attr('dominant-baseline', 'middle')
+                    .attr('fill', '#64748b')
+                    .attr('font-size', '16px')
+                    .text('No tasks to display');
+                return;
+            }
+
+            // Prepare nodes and links data
+            const nodes = visibleTasks.map(task => {
+                const dependencies = Array.isArray(task.dependsOn) ? task.dependsOn : [];
+                const incompleteDeps = dependencies
+                    .map(depId => currentTasks.find(t => t.id === depId))
+                    .filter(dep => dep && !dep.completed);
+
+                return {
+                    id: task.id,
+                    text: task.text,
+                    completed: task.completed,
+                    priority: task.priority || 'medium',
+                    isBlocked: incompleteDeps.length > 0,
+                    dependencies: dependencies
+                };
+            });
+
+            const links = [];
+            visibleTasks.forEach(task => {
+                const dependencies = Array.isArray(task.dependsOn) ? task.dependsOn : [];
+                dependencies.forEach(depId => {
+                    const depTask = visibleTasks.find(t => t.id === depId);
+                    if (depTask) {
+                        const isBlocking = !depTask.completed;
+                        links.push({
+                            source: depId,
+                            target: task.id,
+                            isBlocking: isBlocking
+                        });
+                    }
+                });
+            });
+
+            // Set up the simulation
+            const width = parseInt(svg.style('width'));
+            const height = parseInt(svg.style('height'));
+
+            simulation = d3.forceSimulation(nodes)
+                .force('link', d3.forceLink(links).id(d => d.id).distance(100))
+                .force('charge', d3.forceManyBody().strength(-300))
+                .force('center', d3.forceCenter(width / 2, height / 2))
+                .force('collision', d3.forceCollide().radius(35));
+
+            // Create links
+            const link = svg.append('g')
+                .attr('class', 'links')
+                .selectAll('line')
+                .data(links)
+                .enter().append('line')
+                .attr('class', d => `graph-link ${d.isBlocking && highlightBlocked ? 'blocking' : ''}`)
+                .attr('stroke', d => d.isBlocking && highlightBlocked ? '#ef4444' : '#94a3b8')
+                .attr('stroke-width', d => d.isBlocking && highlightBlocked ? 3 : 2)
+                .attr('stroke-dasharray', d => d.isBlocking && highlightBlocked ? '5,5' : 'none')
+                .attr('marker-end', 'url(#arrowhead)');
+
+            // Create nodes
+            const node = svg.append('g')
+                .attr('class', 'nodes')
+                .selectAll('g')
+                .data(nodes)
+                .enter().append('g')
+                .attr('class', 'node')
+                .call(d3.drag()
+                    .on('start', dragstarted)
+                    .on('drag', dragged)
+                    .on('end', dragended));
+
+            // Add circles to nodes
+            node.append('circle')
+                .attr('r', 20)
+                .attr('class', d => {
+                    let classes = ['graph-node'];
+                    if (d.completed) classes.push('completed');
+                    else if (d.isBlocked && highlightBlocked) classes.push('blocked');
+                    else classes.push('incomplete');
+                    classes.push(`${d.priority}-priority`);
+                    return classes.join(' ');
+                })
+                .attr('fill', d => {
+                    if (d.completed) return '#d1fae5';
+                    if (d.isBlocked && highlightBlocked) return '#fee2e2';
+                    return '#f1f5f9';
+                })
+                .attr('stroke', d => {
+                    if (d.completed) return '#10b981';
+                    if (d.isBlocked && highlightBlocked) return '#ef4444';
+                    return '#64748b';
+                })
+                .attr('stroke-width', d => {
+                    const baseWidth = d.priority === 'high' ? 3 : 2;
+                    return baseWidth;
+                });
+
+            // Add priority indicators
+            node.append('text')
+                .attr('class', 'priority-indicator')
+                .attr('x', 15)
+                .attr('y', -15)
+                .attr('text-anchor', 'middle')
+                .attr('font-size', '12px')
+                .text(d => {
+                    if (d.priority === 'high') return '🔴';
+                    if (d.priority === 'medium') return '🟡';
+                    if (d.priority === 'low') return '🟢';
+                    return '';
+                });
+
+            // Add text labels
+            node.append('text')
+                .attr('class', 'graph-text')
+                .attr('dy', '.35em')
+                .attr('font-size', '10px')
+                .attr('text-anchor', 'middle')
+                .text(d => {
+                    const maxLength = 12;
+                    return d.text.length > maxLength ? 
+                        d.text.substring(0, maxLength) + '...' : 
+                        d.text;
+                })
+                .call(wrap, 40);
+
+            // Add completion checkmark
+            node.filter(d => d.completed)
+                .append('text')
+                .attr('x', 0)
+                .attr('y', 5)
+                .attr('text-anchor', 'middle')
+                .attr('font-size', '16px')
+                .attr('fill', '#10b981')
+                .text('✓');
+
+            // Add tooltips on hover
+            node.append('title')
+                .text(d => {
+                    let tooltip = `${d.text}\nPriority: ${d.priority}`;
+                    if (d.completed) tooltip += '\nStatus: Completed';
+                    else if (d.isBlocked) tooltip += '\nStatus: Blocked by dependencies';
+                    else tooltip += '\nStatus: Available';
+                    if (d.dependencies.length > 0) {
+                        tooltip += `\nDependencies: ${d.dependencies.length}`;
+                    }
+                    return tooltip;
+                });
+
+            // Click handler for nodes
+            node.on('click', function(event, d) {
+                // Highlight connected nodes
+                const connectedNodes = new Set();
+                const connectedLinks = new Set();
+
+                // Find all connections
+                links.forEach(link => {
+                    if (link.source.id === d.id || link.target.id === d.id) {
+                        connectedLinks.add(link);
+                        connectedNodes.add(link.source.id);
+                        connectedNodes.add(link.target.id);
+                    }
+                });
+
+                // Reset all styles
+                node.selectAll('circle').attr('stroke-width', d => d.priority === 'high' ? 3 : 2);
+                link.attr('stroke-width', d => d.isBlocking && highlightBlocked ? 3 : 2);
+
+                // Highlight connected elements
+                node.filter(n => connectedNodes.has(n.id))
+                    .selectAll('circle')
+                    .attr('stroke-width', 4);
+
+                link.filter(l => connectedLinks.has(l))
+                    .attr('stroke-width', 4);
+            });
+
+            // Update positions on simulation tick
+            simulation.on('tick', () => {
+                link
+                    .attr('x1', d => d.source.x)
+                    .attr('y1', d => d.source.y)
+                    .attr('x2', d => d.target.x)
+                    .attr('y2', d => d.target.y);
+
+                node
+                    .attr('transform', d => `translate(${d.x},${d.y})`);
+            });
+        }
+
+        // Text wrapping function for node labels
+        function wrap(text, width) {
+            text.each(function() {
+                const text = d3.select(this);
+                const words = text.text().split(/\s+/).reverse();
+                let word;
+                let line = [];
+                let lineNumber = 0;
+                const lineHeight = 1.1;
+                const y = text.attr('y');
+                const dy = parseFloat(text.attr('dy'));
+                let tspan = text.text(null).append('tspan').attr('x', 0).attr('y', y).attr('dy', dy + 'em');
+                
+                while (word = words.pop()) {
+                    line.push(word);
+                    tspan.text(line.join(' '));
+                    if (tspan.node().getComputedTextLength() > width && line.length > 1) {
+                        line.pop();
+                        tspan.text(line.join(' '));
+                        line = [word];
+                        tspan = text.append('tspan').attr('x', 0).attr('y', y).attr('dy', ++lineNumber * lineHeight + dy + 'em').text(word);
+                    }
+                }
+            });
+        }
+
+        // Drag functions
+        function dragstarted(event, d) {
+            if (!event.active) simulation.alphaTarget(0.3).restart();
+            d.fx = d.x;
+            d.fy = d.y;
+        }
+
+        function dragged(event, d) {
+            d.fx = event.x;
+            d.fy = event.y;
+        }
+
+        function dragended(event, d) {
+            if (!event.active) simulation.alphaTarget(0);
+            d.fx = null;
+            d.fy = null;
+        }
+
         // Utility functions
         function saveCurrentTasks() {
             localStorage.setItem('currentTasks', JSON.stringify(currentTasks));
         }
+        
+        // Enter key handler for task input
         document.getElementById('taskInput').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 addTask();
