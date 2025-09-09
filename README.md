@@ -39,7 +39,7 @@ The application includes an interactive task dependency graph, powered by D3.js.
 *   **Force-Directed Layout:** The graph uses a force-directed layout to automatically arrange the nodes (tasks) and links (dependencies) in a clear and readable way.
 *   **Interactive Nodes:** Click on a task node to highlight its connections to other tasks.
 *   **Visual Cues:** The graph uses different colors and styles to indicate the status of each task (e.g., completed, blocked, available) and its priority.
-*   **Graph Controls:** You can customize the graph view by toggling the visibility of completed tasks and highlighting blocked tasks.
+*   **Graph Controls:** You can customize the graph view by toggling the visibility of completed tasks, highlighting blocked tasks, and zooming and resetting the view.
 
 ## (Optional) AI Summary Generation
 
