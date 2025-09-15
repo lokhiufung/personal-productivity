@@ -23,16 +23,70 @@
                 <div class="stat-label">Total Tasks</div>
             </div>
             <div class="stat-card">
+                <div class="stat-number" id="goalsCompleted">0</div>
+                <div class="stat-label">Goals Completed</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalGoals">0</div>
+                <div class="stat-label">Total Goals</div>
+            </div>
+            <div class="stat-card">
                 <div class="stat-number" id="weeksTracked">0</div>
                 <div class="stat-label">Weeks of Progress</div>
             </div>
             <div class="stat-card">
                 <div class="stat-number" id="completionRate">0%</div>
-                <div class="stat-label">Completion Rate</div>
+                <div class="stat-label">Task Completion Rate</div>
             </div>
         </div>
 
         <div id="celebration" style="display: none;"></div>
+        
+        <!-- Goals Section -->
+        <div class="goals-section section">
+            <h2>🎯 Goals</h2>
+            <div class="goals-input">
+                <button class="btn" onclick="showGoalForm()">Add Goal</button>
+            </div>
+            
+            <!-- Goal Creation Form (initially hidden) -->
+            <div id="goalForm" class="goal-form" style="display: none;">
+                <div class="goal-form-content">
+                    <h3>🎯 Create New Goal</h3>
+                    
+                    <div class="goal-form-section">
+                        <label for="goalFormTitle">Goal Title *</label>
+                        <input type="text" id="goalFormTitle" placeholder="What do you want to achieve?" maxlength="100">
+                    </div>
+                    
+                    <div class="goal-form-section">
+                        <label for="goalFormDescription">Description (optional)</label>
+                        <textarea id="goalFormDescription" placeholder="Why is this goal important? What will success look like?"></textarea>
+                    </div>
+                    
+                    <div class="goal-form-section">
+                        <label for="goalFormDeadline">Target Deadline (optional)</label>
+                        <input type="date" id="goalFormDeadline">
+                    </div>
+                    
+                    <div class="goal-form-section">
+                        <label for="goalFormPriority">Priority</label>
+                        <select id="goalFormPriority" class="goal-select">
+                            <option value="low">🟢 Low</option>
+                            <option value="medium" selected>🟡 Medium</option>
+                            <option value="high">🔴 High</option>
+                        </select>
+                    </div>
+                    
+                    <div class="goal-form-actions">
+                        <button class="btn" onclick="addGoal()">Create Goal</button>
+                        <button class="btn btn-secondary" onclick="hideGoalForm()">Cancel</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="goals-list" id="goalsList"></div>
+        </div>
         
         <div class="graph-section section">
             <h2>🕸️ Task Dependency Graph</h2>
@@ -73,6 +127,10 @@
                         <span>Blocked</span>
                     </div>
                     <div class="legend-item">
+                        <div style="width: 16px; height: 16px; background: #f59e0b; border-radius: 50%; border: 1px solid #d97706; display: flex; align-items: center; justify-content: center; font-size: 8px;">🎯</div>
+                        <span>Linked to Goal</span>
+                    </div>
+                    <div class="legend-item">
                         <svg width="20" height="2"><line x1="0" y1="1" x2="20" y2="1" stroke="#94a3b8" stroke-width="2"/></svg>
                         <span>Dependency</span>
                     </div>
@@ -97,6 +155,14 @@
                     <div class="task-form-content">
                         <h3>📋 Create New Task</h3>
                         <input type="text" id="taskFormInput" placeholder="Task description" maxlength="100">
+                        
+                        <div class="goal-section">
+                            <label for="taskGoal">🎯 Link to Goal (optional):</label>
+                            <select id="taskGoal" class="goal-select">
+                                <option value="">No specific goal</option>
+                            </select>
+                            <small class="dependency-hint">Link this task to one of your goals to track progress</small>
+                        </div>
                         
                         <div class="dependency-section">
                             <label for="dependsOn">🔗 Dependencies (optional):</label>
