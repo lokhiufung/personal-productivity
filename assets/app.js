@@ -385,13 +385,23 @@ function saveWeeklySummary() {
 
 function clearWeek() {
     if (currentTasks.length > 0 || document.getElementById('weeklySummary').value.trim() !== '') {
-        if (!confirm('This will clear your current tasks and summary. Are you sure?')) {
+        if (!confirm('This will clear your current summary and remove all completed tasks. Incomplete tasks will be carried over. Are you sure?')) {
             return;
         }
     }
     
-    // Only keep unfinished tasks for the new week
-    currentTasks = currentTasks.filter(task => !task.completed);
+    // Remove completed tasks and keep only unfinished tasks for the new week
+    const unfinishedTasks = currentTasks.filter(task => !task.completed);
+    
+    // Clean up dependencies - remove any dependencies that reference completed/removed tasks
+    const unfinishedTaskIds = new Set(unfinishedTasks.map(t => t.id));
+    unfinishedTasks.forEach(task => {
+        if (task.dependsOn && task.dependsOn.length > 0) {
+            task.dependsOn = task.dependsOn.filter(depId => unfinishedTaskIds.has(depId));
+        }
+    });
+    
+    currentTasks = unfinishedTasks;
     document.getElementById('weeklySummary').value = '';
     saveCurrentTasks();
     localStorage.removeItem('currentSummary');
@@ -399,7 +409,11 @@ function clearWeek() {
     updateStats();
     refreshGraph();
     
-    showCelebration('Fresh start! Unfinished tasks carried over. Ready for another productive week! 💪');
+    const removedCount = currentTasks.length > 0 ? 
+        `${currentTasks.length} unfinished tasks carried over.` : 
+        'All tasks completed!';
+    
+    showCelebration(`Fresh start! Completed tasks removed. ${removedCount} Ready for another productive week! 💪`);
 }
 
 function loadCurrentSummary() {
@@ -775,13 +789,13 @@ function refreshGraph() {
         });
     });
 
-    // Set up the simulation
+    // Set up the simulation with reduced repulsive force
     const width = parseInt(svg.style('width'));
     const height = parseInt(svg.style('height'));
 
     simulation = d3.forceSimulation(nodes)
         .force('link', d3.forceLink(links).id(d => d.id).distance(100))
-        .force('charge', d3.forceManyBody().strength(-300))
+        .force('charge', d3.forceManyBody().strength(-150))  // Reduced from -300 to -150
         .force('center', d3.forceCenter(width / 2, height / 2))
         .force('collision', d3.forceCollide().radius(35));
 
