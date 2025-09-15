@@ -5,7 +5,33 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased] - 2025-09-09
+## [Unreleased]
+
+### Added
+
+-   **Goal Management:**
+    -   Users can now create, edit, and delete goals.
+    -   Goals have a title, description, deadline, and priority.
+    -   Goals can be marked as complete.
+    -   The UI now displays a list of goals with their progress.
+-   **Task-Goal Linking:**
+    -   Tasks can be linked to goals.
+    -   The task dependency graph now visually indicates which tasks are linked to goals.
+-   **Enhanced Stats:**
+    -   The stats section now includes metrics for goals completed and total goals.
+-   **Improved AI Summary:**
+    -   The AI-generated weekly summary now includes information about completed goals.
+
+### Changed
+
+-   The header text has been updated for clarity.
+-   Refactor CSS and JavaScript into separate files (`assets/styles.css` and `assets/app.js`).
+
+### Fixed
+
+-   Enhance `clearWeek` function to remove completed tasks and clean up dependencies.
+
+## [0.2.0] - 2025-09-09
 
 ### Added
 

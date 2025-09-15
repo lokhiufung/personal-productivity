@@ -4,6 +4,7 @@ This is a simple, yet powerful, single-page web application designed to help you
 
 ## Features
 
+*   **Goal Management:** Set and track high-level goals, and link tasks to them to visualize progress.
 *   **Weekly Task Management:** Add, edit, and delete tasks for the current week.
 *   **Task Completion:** Mark tasks as complete to track your progress.
 *   **Task Dependencies:** Define dependencies between tasks, ensuring a logical workflow.
@@ -30,6 +31,16 @@ This is a simple, yet powerful, single-page web application designed to help you
 3.  **Open in your browser:**
     Navigate to `http://localhost:8000` in your web browser to use the application.
 
+## Goal Management
+
+The application now includes a goal management system to help you track your high-level objectives. You can create, edit, and delete goals, and link tasks to them to visualize your progress.
+
+### Goal Features
+
+*   **Create Goals:** Add new goals with a title, description, deadline, and priority.
+*   **Track Progress:** The application automatically calculates and displays the progress of each goal based on the completion of linked tasks.
+*   **Visual Indicators:** The task dependency graph now includes visual indicators for tasks that are linked to goals.
+
 ## Task Dependency Graph
 
 The application includes an interactive task dependency graph, powered by D3.js. This graph provides a visual representation of your tasks and their relationships, helping you to understand the overall structure of your work and identify critical paths.
@@ -38,7 +49,7 @@ The application includes an interactive task dependency graph, powered by D3.js.
 
 *   **Force-Directed Layout:** The graph uses a force-directed layout to automatically arrange the nodes (tasks) and links (dependencies) in a clear and readable way.
 *   **Interactive Nodes:** Click on a task node to highlight its connections to other tasks.
-*   **Visual Cues:** The graph uses different colors and styles to indicate the status of each task (e.g., completed, blocked, available) and its priority.
+*   **Visual Cues:** The graph uses different colors and styles to indicate the status of each task (e.g., completed, blocked, available), its priority, and whether it's linked to a goal.
 *   **Graph Controls:** You can customize the graph view by toggling the visibility of completed tasks, highlighting blocked tasks, and zooming and resetting the view.
 
 ## (Optional) AI Summary Generation
